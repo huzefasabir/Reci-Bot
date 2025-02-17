@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <title>Recipe Chatbot - Home</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="popup-blur" id="popupBlur"></div>
+
+        <aside class="sidebar">
+            <!-- <div class="logo">
+                <img src='assets/logo.png' alt="Logo">
+            </div> -->
+            <button class="new-chat-btn">
+                <i class="fas fa-plus"></i>
+            </button>
+            <nav>
+                <ul>
+                    <li><button><i class="fas fa-home"></i></button></li>
+                    <li><button><i class="fas fa-search"></i></button></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <div class="main-content">
+            <div class="header">LET'S WHIP UP SOMETHING<br>DELICIOUS 😋!</div>
+
+            <div class="chatbox-wrapper">
+                <div id="chatbox" class="chat-container"></div>
+                <div class="input-container">
+                    <form class="message-form">
+                        <div class="input-wrapper">
+                            <input type="text" placeholder="Ask something...">
+                            <button type="submit">➤</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="popup-container" id="popupContainer">
+            <a href="#">
+                <div class="popup-box" id="card-1"><h2>Recipe Creator</h2><p>Your Personal AI Chef!</p></div>
+            </a>
+            <a href="#">
+                <div class="popup-box" id="card-2"><h2>Ingredient Wizard</h2><p>Customize Your Recipe!</p></div>
+            </a>
+            <a href="#">
+                <div class="popup-box" id="card-3"><h2>Image to Weight</h2><p>Convert with Precision!</p></div>
+            </a>
+        </div>
+    </div>
+
+    <script src="Script.js"></script>
+</body>
+
+</html>
