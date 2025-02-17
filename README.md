@@ -17,11 +17,11 @@ A web-based AI-powered chatbot that helps users generate and customize recipes b
 ## Installation & Setup
 1. Clone the repository:
 
-  https://github.com/huzefasabir/Reci-Bot.git
+    https://github.com/huzefasabir/Reci-Bot.git
 
 2. Navigate to the project folder:
 
-  cd Reci-bot/reci-bot
+    cd Reci-bot/reci-bot
    
 3. Open `index.html` in your browser.
 
