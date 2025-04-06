@@ -93,7 +93,37 @@ document.addEventListener("DOMContentLoaded", () => {
         chatbox.scrollTop = chatbox.scrollHeight;
 
         content.innerHTML = `<strong>${sender}:</strong> ${message}`;
+    
+        if (isBot) {
+            typeWriterEffect(content, `<strong>${sender}:</strong> ${message}`);
+        } else {
+            content.innerHTML = `<strong>${sender}:</strong> ${message}`;
+        }
     }
+
+    function typeWriterEffect(element, text, speed = 30) {
+        let i = 0;
+        element.innerHTML = ""; // Clear content before typing effect
+
+        function type() {
+            if (i < text.length) {
+                element.innerHTML = text.substring(0, i + 1); // Use substring to keep HTML formatting
+                i++;
+                setTimeout(type, speed);
+            } else {
+                if (conversationState === "processingRecipe") {
+                    setTimeout(() => {
+                        conversationState = "askDish";
+                        addMessage("Reci-Bot", "Would you like to cook something else? Let's start over!", true);
+                    }, 2000);
+                }
+            }
+        }
+
+        type();
+    }
+
+
 
     function startDishNameChat() {
         conversationState = "askDish";
@@ -143,20 +173,41 @@ document.addEventListener("DOMContentLoaded", () => {
             addMessage("Reci-Bot", `Error: ${error.message}`, true);
         }
     }
-
-    function displayFormattedRecipe(title, servings, recipeText) {
-        const recipeContainer = document.createElement("div");
-        recipeContainer.className = "recipe-result";
-
-        recipeContainer.innerHTML = `<h2>🍽️ Recipe for ${title} (${servings} servings)</h2>
-                                     <div class="recipe-content">${recipeText.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>").replace(/\n/g, "<br>")}</div>`;
-        chatbox.appendChild(recipeContainer);
-        chatbox.scrollTop = chatbox.scrollHeight;
-
-        setTimeout(() => {
-            addMessage("Reci-Bot", "Would you like to cook something else? Let's start over!", true);
-            conversationState = "askDish";
-        }, 3000);
+    async function displayFormattedRecipe(title, servings, recipeText) {
+        return new Promise((resolve) => {
+            const recipeContainer = document.createElement("div");
+            recipeContainer.className = "recipe-result";
+    
+            recipeContainer.innerHTML = `<h2>🍽️ Recipe for ${title} (${servings} servings)</h2>
+                                        <div class="recipe-content generating-animation">Generating your recipe...</div>`;
+            chatbox.appendChild(recipeContainer);
+            chatbox.scrollTop = chatbox.scrollHeight;
+    
+            setTimeout(() => {
+                const recipeContent = recipeContainer.querySelector('.recipe-content');
+                recipeContent.className = "recipe-content typing-animation";
+                let finalContent = recipeText
+                    .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>") // Make bold text work
+                    .replace(/\n/g, "<br>"); // Preserve line breaks
+    
+                let i = 0;
+                function typeWriter() {
+                    if (i < finalContent.length) {
+                        recipeContent.innerHTML = finalContent.substring(0, i + 1);
+                        i++;
+                        setTimeout(typeWriter, 5); // Controls typing speed
+                    } else {
+                        // Ensure a 3-second delay before asking for a new dish
+                        setTimeout(() => {
+                            addMessage("Reci-Bot", "Would you like to cook something else? Let's start over!", true);
+                            conversationState = "askDish"; // Reset the chatbot state for a new recipe
+                        }, 3000); // Waits 3 seconds before restarting
+                        resolve();
+                    }
+                }
+                typeWriter();
+            }, 1000);
+        });
     }
 
     async function getChatResponse(userMessage) {
