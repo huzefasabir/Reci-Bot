@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Ingredient Weight Calculator</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="style_weight.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Food Ingredient Weight Calculator</h1>
+            <p>Upload a food image and get accurate ingredient weight estimates using AI technology</p>
+            
+            <div class="steps">
+                <div class="step active">
+                    <div class="step-number">1</div>
+                    <div class="step-label">Upload</div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-label">Analysis</div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-label">Results</div>
+                </div>
+            </div>
+        </header>
+        
+        <main>
+            <!-- Upload Card -->
+            <div class="card">
+                <div class="upload-area">
+                    <label for="imageUpload" class="drop-zone">
+                        <div class="upload-icon">
+                            <svg width="100%" height="100%" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="17 8 12 3 7 8"></polyline>
+                                <line x1="12" y1="3" x2="12" y2="15"></line>
+                            </svg>
+                        </div>
+                        <div class="drop-zone-text">Drag & Drop Your Food Image</div>
+                        <div class="drop-zone-hint">Or click to browse your files (JPEG, PNG up to 10MB)</div>
+                    </label>
+                    <input type="file" id="imageUpload" accept="image/*" class="file-input">
+                    
+                    <h3>Example Images</h3>
+                    <div class="examples">
+                        <div class="example">
+                            <img src="/api/placeholder/100/100" alt="Example food 1">
+                            <div class="example-label">Salad</div>
+                        </div>
+                        <div class="example">
+                            <img src="/api/placeholder/100/100" alt="Example food 2">
+                            <div class="example-label">Pasta</div>
+                        </div>
+                        <div class="example">
+                            <img src="/api/placeholder/100/100" alt="Example food 3">
+                            <div class="example-label">Stir-fry</div>
+                        </div>
+                        <div class="example">
+                            <img src="/api/placeholder/100/100" alt="Example food 4">
+                            <div class="example-label">Smoothie</div>
+                        </div>
+                        <div class="example">
+                            <img src="/api/placeholder/100/100" alt="Example food 5">
+                            <div class="example-label">Bowl</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Preview Card (Hidden by default) -->
+            <div class="card preview-card" style="display: none;">
+                <h2>Image Preview</h2>
+                <img src="/api/placeholder/400/300" alt="Food preview" class="preview-image">
+                
+                <div class="buttons">
+                    <button class="button button-primary">Edit/Crop</button>
+                    <button class="button button-success">Start Analysis</button>
+                </div>
+            </div>
+            
+            <!-- Loading Card (Hidden by default) -->
+            <div class="card" style="display: none;">
+                <div class="loading">
+                    <div class="spinner"></div>
+                    <div class="loading-text">Analyzing Your Food Image...</div>
+                    <div class="loading-detail">Our AI is identifying ingredients and calculating their weights. This typically takes 10-15 seconds.</div>
+                </div>
+                
+                <h3>Analysis Log</h3>
+                <div class="log" id="analysisLog">
+                    <!-- Log entries will be dynamically added here -->
+                </div>
+            </div>
+            
+            <!-- Results Card (Hidden by default) -->
+            <div class="card" style="display: none;">
+                <h2>Weight Analysis Results</h2>
+                
+                <div class="result-summary">
+                    <div class="result-metric">
+                        <div class="result-metric-value">0</div>
+                        <div class="result-metric-label">Ingredients</div>
+                    </div>
+                    <div class="result-metric">
+                        <div class="result-metric-value">0g</div>
+                        <div class="result-metric-label">Total Weight</div>
+                    </div>
+                    <div class="result-metric">
+                        <div class="result-metric-value">98%</div>
+                        <div class="result-metric-label">Confidence</div>
+                    </div>
+                </div>
+                
+                <h3>Ingredient Breakdown</h3>
+                <table class="result-table">
+                    <thead>
+                        <tr>
+                            <th>Ingredient</th>
+                            <th>Weight</th>
+                            <th>Equivalent</th>
+                            <th>Confidence</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Results will be dynamically added here -->
+                    </tbody>
+                </table>
+                
+                <div class="buttons">
+                    <button class="button button-primary">Download Report</button>
+                    <button class="button button-success">New Analysis</button>
+                </div>
+            </div>
+            
+            <div class="card info-card">
+                <h3>How It Works</h3>
+                <p>This tool uses advanced AI to analyze your food images and provide accurate weight estimates of ingredients.</p>
+                
+                <div class="tips">
+                    <div class="tip">
+                        <div class="tip-number">1</div>
+                        <div class="tip-content">Take a clear photo from above with good lighting to ensure accurate analysis.</div>
+                    </div>
+                    <div class="tip">
+                        <div class="tip-number">2</div>
+                        <div class="tip-content">Include a reference object like a coin or standard utensil for better accuracy.</div>
+                    </div>
+                    <div class="tip">
+                        <div class="tip-number">3</div>
+                        <div class="tip-content">Make sure all ingredients are clearly visible and not overlapping too much.</div>
+                    </div>
+                    <div class="tip">
+                        <div class="tip-number">4</div>
+                        <div class="tip-content">For mixed dishes, try to arrange ingredients separately before taking the photo.</div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <footer>
+            <p>Powered by Advanced AI Technology • Created with ❤️</p>
+            <div class="footer-links">
+                <a href="#" class="footer-link">Privacy Policy</a>
+                <a href="#" class="footer-link">Terms of Use</a>
+                <a href="#" class="footer-link">Support</a>
+            </div>
+        </footer>
+    </div>
+    
+    <!-- Add the script at the end of body -->
+    <script src="script_weight.js"></script>
+</body>
+</html>
