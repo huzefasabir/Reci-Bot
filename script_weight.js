@@ -1,8 +1,7 @@
 // Main JavaScript file for ingredient detection
 
 // Configuration for Google Generative AI API
-// You'll need to replace this with your actual API key when using
-// const API_KEY = "AIzaSyArqHLl54_0nFtYrFcs-8KRpPCvSMSDvO4"; 
+// You'll need to replace this with your actual API key when using; 
 let API_KEY = null;
 
 /**
